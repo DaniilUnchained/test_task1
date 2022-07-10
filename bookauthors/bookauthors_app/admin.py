@@ -8,7 +8,7 @@ class BookInline(admin.TabularInline):
     
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('surname', 'count_books')
-    inlines = [BookInline,]
+    inlines = [BookInline, ]
 
 
 admin.site.register(Author, AuthorAdmin)
