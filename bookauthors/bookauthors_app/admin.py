@@ -13,7 +13,6 @@ class AuthorAdmin(admin.ModelAdmin):
         nums_set = Author.objects.annotate(num_books=Count('book'))
         return nums_set[self.id-1].num_books
 
-    nums_set = Author.objects.annotate()
     list_display = ('surname', count_books)
     inlines = [BookInline, ]
 
