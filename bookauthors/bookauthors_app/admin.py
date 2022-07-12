@@ -8,8 +8,9 @@ class BookInline(admin.TabularInline):
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    @admin.display
+
     def count_books(self):
+        """Запрос к БД подсчитывающий кол-во книг для каждого автора"""
         nums_set = Author.objects.annotate(num_books=Count('book'))
         return nums_set[self.id-1].num_books
 
