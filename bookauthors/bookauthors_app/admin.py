@@ -9,10 +9,12 @@ class BookInline(admin.TabularInline):
 
 class AuthorAdmin(admin.ModelAdmin):
 
+    def get_queryset(self, request):
+        queryset = super(AuthorAdmin, self).get_queryset(request)
+        return queryset.annotate(num_books=Count('book'))
+
     def count_books(self):
-        """Запрос к БД подсчитывающий кол-во книг для каждого автора"""
-        nums_set = Author.objects.annotate(num_books=Count('book'))
-        return nums_set[self.id-1].num_books
+        return self.num_books
 
     list_display = ('surname', count_books)
     inlines = [BookInline, ]
